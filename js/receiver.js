@@ -200,7 +200,7 @@ context.start();
 // const playerManager = context.getPlayerManager();
 
 
-// const LOG_RECEIVER_TAG = 'Receiver';
+ const LOG_RECEIVER_TAG = 'Receiver';
 
 // /**
 //  * Debug Logger
@@ -238,8 +238,8 @@ context.start();
 //  * Set verbosity level for custom tag.
 //  * Enables log messages for error, warn, info and debug.
 //  */
-// castDebugLogger.loggerLevelByTags[LOG_RECEIVER_TAG] =
-//   cast.framework.LoggerLevel.DEBUG;
+castDebugLogger.loggerLevelByTags[LOG_RECEIVER_TAG] =
+  cast.framework.LoggerLevel.DEBUG;
 
 // /**
 //  * Example of how to listen for events on playerManager.
