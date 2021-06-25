@@ -30,6 +30,8 @@ castDebugLogger.loggerLevelByTags = {
     LOG_TAG: cast.framework.LoggerLevel.DEBUG,
 };
 
+castDebugLogger.info(LOG_TAG, '!!! STARTING !!!');
+
 function makeRequest (method, url) {
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest();
