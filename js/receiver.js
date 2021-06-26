@@ -20,7 +20,7 @@ const LOG_TAG = 'MyAPP.LOG';
 castDebugLogger.setEnabled(true);
 
 // Show debug overlay
-// castDebugLogger.showDebugLogs(true);
+castDebugLogger.showDebugLogs(true);
 
 // Set verbosity level for Core events.
 castDebugLogger.loggerLevelByEvents = {
@@ -334,32 +334,30 @@ function fetchMediaByEntity(entity) {
 playerManager.setMessageInterceptor(
     cast.framework.messages.MessageType.LOAD, loadRequestData => {
         console.log('!! LOAD !!');
-    castDebugLogger.debug(LOG_RECEIVER_TAG,
-      `LOAD interceptor loadRequestData: ${JSON.stringify(loadRequestData)}`);
-    if (!loadRequestData || !loadRequestData.media) {
-      const error = new cast.framework.messages.ErrorData(
-        cast.framework.messages.ErrorType.LOAD_FAILED);
-      error.reason = cast.framework.messages.ErrorReason.INVALID_REQUEST;
-      castDebugLogger.error(LOG_RECEIVER_TAG, 'Invalid load request');
-      return error;
-    }
-    if (!loadRequestData.media.contentUrl) {
-      castDebugLogger.warn(LOG_RECEIVER_TAG,
-        'Playable URL is missing. Using ContentId as a fallback.');
-    }
-    if (!loadRequestData.media.contentId) {
-        castDebugLogger.warn(LOG_RECEIVER_TAG,
-          'Missing Content ID and Playable URL. Using entity as a fallback');
-    }
+        castDebugLogger.debug("NNN", `LOAD interceptor loadRequestData: ${JSON.stringify(loadRequestData)}`);
+        castDebugLogger.debug(LOG_TAG, `LOAD interceptor loadRequestData: ${JSON.stringify(loadRequestData)}`);
+        castDebugLogger.info(LOG_TAG, '!!! LOADING !!!');
+        if (!loadRequestData || !loadRequestData.media) {
+            const error = new cast.framework.messages.ErrorData(
+                cast.framework.messages.ErrorType.LOAD_FAILED);
+                error.reason = cast.framework.messages.ErrorReason.INVALID_REQUEST;
+                castDebugLogger.error(LOG_RECEIVER_TAG, 'Invalid load request');
+                return error;
+        }
+        if (!loadRequestData.media.contentUrl) {
+            castDebugLogger.warn(LOG_RECEIVER_TAG, 'Playable URL is missing. Using ContentId as a fallback.');
+        }
+        if (!loadRequestData.media.contentId) {
+            castDebugLogger.warn(LOG_RECEIVER_TAG, 'Missing Content ID and Playable URL. Using entity as a fallback');
+        }
 
-    if (!loadRequestData.media.entity && loadRequestData.media.contentId) {
-      loadRequestData.media.entity = loadRequestData.media.contentId;
-      castDebugLogger.info(LOG_RECEIVER_TAG,
-          'Setting entity to contentId');
-    }
-    if (loadRequestData.media.entity) {
-      castDebugLogger.info(LOG_RECEIVER_TAG,
-          `Loading entity ${loadRequestData.media.entity} from API`);
+        if (!loadRequestData.media.entity && loadRequestData.media.contentId) {
+            loadRequestData.media.entity = loadRequestData.media.contentId;
+            castDebugLogger.info(LOG_RECEIVER_TAG, 'Setting entity to contentId');
+        }
+    
+        if (loadRequestData.media.entity) {
+            castDebugLogger.info(LOG_RECEIVER_TAG, `Loading entity ${loadRequestData.media.entity} from API`);
       return new Promise((accept, reject) => {
         addBreaks(loadRequestData.media)
         .then(() => fetchMediaByEntity(loadRequestData.media.entity))
