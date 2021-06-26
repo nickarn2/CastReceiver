@@ -332,7 +332,6 @@ function fetchMediaByEntity(entity) {
 //  * Intercept the LOAD request to be able to read in a contentId and get data.
 //  */
 playerManager.setMessageInterceptor(
-    console.log('??? LOAD ???');    
     cast.framework.messages.MessageType.LOAD, loadRequestData => {
         console.log('!! LOAD !!');
     castDebugLogger.debug(LOG_RECEIVER_TAG,
