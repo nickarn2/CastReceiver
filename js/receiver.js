@@ -59,57 +59,58 @@ function makeRequest (method, url) {
   });
 }
 
-playerManager.setMessageInterceptor(
-  cast.framework.messages.MessageType.LOAD,
-  request => {
-    castDebugLogger.info(LOG_TAG, 'Intercepting LOAD request');
+//nn3
+// playerManager.setMessageInterceptor(
+//   cast.framework.messages.MessageType.LOAD,
+//   request => {
+//     castDebugLogger.info(LOG_TAG, 'Intercepting LOAD request');
 
-    // Map contentId to entity
-    if (request.media && request.media.entity) {
-      request.media.contentId = request.media.entity;
-    }
+//     // Map contentId to entity
+//     if (request.media && request.media.entity) {
+//       request.media.contentId = request.media.entity;
+//     }
 
-    return new Promise((resolve, reject) => {
-      // Fetch repository metadata
-      makeRequest('GET', SAMPLE_URL)
-        .then(function (data) {
-          // Obtain resources by contentId from downloaded repository metadata.
-          let item = data[request.media.contentId];
-          if(!item) {
-            // Content could not be found in repository
-            castDebugLogger.error(LOG_TAG, 'Content not found');
-            reject();
-          } else {
-            // Adjusting request to make requested content playable
-            request.media.contentType = TEST_STREAM_TYPE;
+//     return new Promise((resolve, reject) => {
+//       // Fetch repository metadata
+//       makeRequest('GET', SAMPLE_URL)
+//         .then(function (data) {
+//           // Obtain resources by contentId from downloaded repository metadata.
+//           let item = data[request.media.contentId];
+//           if(!item) {
+//             // Content could not be found in repository
+//             castDebugLogger.error(LOG_TAG, 'Content not found');
+//             reject();
+//           } else {
+//             // Adjusting request to make requested content playable
+//             request.media.contentType = TEST_STREAM_TYPE;
 
-            // Configure player to parse DASH content
-            if(TEST_STREAM_TYPE == StreamType.DASH) {
-              request.media.contentUrl = item.stream.dash;
-            }
+//             // Configure player to parse DASH content
+//             if(TEST_STREAM_TYPE == StreamType.DASH) {
+//               request.media.contentUrl = item.stream.dash;
+//             }
 
-            // Configure player to parse HLS content
-            else if(TEST_STREAM_TYPE == StreamType.HLS) {
-              request.media.contentUrl = item.stream.hls
-              request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.FMP4;
-              request.media.hlsVideoSegmentFormat = cast.framework.messages.HlsVideoSegmentFormat.FMP4;
-            }
+//             // Configure player to parse HLS content
+//             else if(TEST_STREAM_TYPE == StreamType.HLS) {
+//               request.media.contentUrl = item.stream.hls
+//               request.media.hlsSegmentFormat = cast.framework.messages.HlsSegmentFormat.FMP4;
+//               request.media.hlsVideoSegmentFormat = cast.framework.messages.HlsVideoSegmentFormat.FMP4;
+//             }
             
-            castDebugLogger.warn(LOG_TAG, 'Playable URL:', request.media.contentUrl);
+//             castDebugLogger.warn(LOG_TAG, 'Playable URL:', request.media.contentUrl);
             
-            // Add metadata
-            let metadata = new cast.framework.messages.GenericMediaMetadata();
-            metadata.title = item.title;
-            metadata.subtitle = item.author;
+//             // Add metadata
+//             let metadata = new cast.framework.messages.GenericMediaMetadata();
+//             metadata.title = item.title;
+//             metadata.subtitle = item.author;
 
-            request.media.metadata = metadata;
+//             request.media.metadata = metadata;
 
-            // Resolve request
-            resolve(request);
-          }
-      });
-    });
-  });
+//             // Resolve request
+//             resolve(request);
+//           }
+//       });
+//     });
+//   });
 
 // Optimizing for smart displays
 const touchControls = cast.framework.ui.Controls.getInstance();
