@@ -16,7 +16,7 @@ playerManager.setMessageInterceptor(
   loadRequestData => {
     debugger;
     console.log("loadRequestData" + loadRequestData);
-    console.log("loadRequestData" + lJSON.stringify(oadRequestData));
+    console.log("loadRequestData" + JSON.stringify(oadRequestData));
     return loadRequestData;
   }
 );
