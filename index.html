@@ -9,72 +9,9 @@
   </head>
 
   <body>
-  <cast-media-player id="player"></cast-media-player>
-  <style>
-    #player {
-      --theme-hue: 210;
-      --splash-image: url("https://images.unsplash.com/photo-1517685352821-92cf88aee5a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80");
-      --splash-background: #3d4246;
-      --logo-image: url("https://nickarn2.github.io/MeraChromecast/images/cloud-logo.svg");
-      --watermark-image: url("https://nickarn2.github.io/MeraChromecast/images/device-example.svg");
-      --watermark-size: 200px 200px;
-      --progress-color: #f15a28;
-      --font-family: Roboto;
-    }
-  </style>
-  <script>
-    const context = cast.framework.CastReceiverContext.getInstance();
-    const playerManager = context.getPlayerManager();
-    const options = new cast.framework.CastReceiverOptions();
-    options.maxInactivity = 3600;
-
-    // message interceptor
-    const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
-    context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
-      // handle customEvent.
-      console.log("addCustomMessageListener: " + customEvent);
-    });
-
-    // intercept the LOAD request to be able to read in a contentId and get data
-    playerManager.setMessageInterceptor(
-      cast.framework.messages.MessageType.LOAD,
-      loadRequestData => {
-        debugger;
-        console.log("loadRequestData" + loadRequestData);
-        return loadRequestData;
-      }
-    );
-
-    // listen to all Core Events
-    playerManager.addEventListener(
-      cast.framework.events.category.CORE,
-      event => {
-        console.log("playerManager" + event.EventType);
-      }
-    );
-
-    playerManager.addEventListener(
-      cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-      () => {
-        console.log("PLAYER_LOAD_COMPLETE");
-      }
-    );
-
-    const playbackConfig = new cast.framework.PlaybackConfig();
-    playbackConfig.manifestRequestHandler = requestInfo => {
-      console.log("requestInfo" + requestInfo);
-    };
-
-    playbackConfig.segmentRequestHandler = requestInfo => {
-      console.log("segmentRequestHandler: " + requestInfo);
-    };
-
-    // Sets the player to start playback as soon as there are five seconds of
-    // media contents buffered. Default is 10.
-    playbackConfig.autoResumeDuration = 5;
-    context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
-    context.start({ playbackConfig: playbackConfig });
-  </script>
-</body>
-
+    <cast-media-player></cast-media-player>
+    <footer>
+      <script src="js/receiver.js"></script>
+  </footer>
+  </body>
 </html>
