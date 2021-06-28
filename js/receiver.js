@@ -25,6 +25,7 @@ playerManager.addEventListener(
   cast.framework.events.category.CORE,
   event => {
     console.log("playerManager = " + event.type);
+    console.log("CastContext", "Core event: " + JSON.stringify(event));
   }
 );
 
