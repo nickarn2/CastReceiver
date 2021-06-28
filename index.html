@@ -8,10 +8,77 @@
     <script src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
   </head>
 
-  <body>
-    <cast-media-player></cast-media-player>
-    <footer>
-      <script src="js/receiver.js"></script>
-  </footer>
-  </body>
+ caf_receiver_logger  <body>
+  <cast-media-player id="player"></cast-media-player>
+  <style>
+    #player {
+      --theme-hue: 210;
+      --splash-image: url("https://gist.githubusercontent.com/devcer/523f183fadefb3fdf5dccb761198294b/raw/fedfca68e6af85eb1e317340500a791130ddd1fe/rh-cast.png");
+      --splash-background: #3d4246;
+      --logo-image: url("https://gist.githubusercontent.com/devcer/523f183fadefb3fdf5dccb761198294b/raw/4bc55d8eebf018f27e7e1e32bbb0a337101bf005/logo.png");
+      --watermark-image: url("https://gist.githubusercontent.com/devcer/523f183fadefb3fdf5dccb761198294b/raw/4bc55d8eebf018f27e7e1e32bbb0a337101bf005/logo.png");
+      --watermark-size: 200px 200px;
+      --progress-color: #f15a28;
+      --font-family: Roboto;
+    }
+  </style>
+  <script
+    type="text/javascript"
+    src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"
+  ></script>
+  <script>
+    const context = cast.framework.CastReceiverContext.getInstance();
+    const playerManager = context.getPlayerManager();
+    const options = new cast.framework.CastReceiverOptions();
+    // options.maxInactivity = 3600;
+
+    // message interceptor
+    const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
+    context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
+      // handle customEvent.
+      console.log("addCustomMessageListener: " + customEvent);
+    });
+
+    // intercept the LOAD request to be able to read in a contentId and get data
+    playerManager.setMessageInterceptor(
+      cast.framework.messages.MessageType.LOAD,
+      loadRequestData => {
+        debugger;
+        console.log("loadRequestData" + loadRequestData);
+        return loadRequestData;
+      }
+    );
+
+    // listen to all Core Events
+    playerManager.addEventListener(
+      cast.framework.events.category.CORE,
+      event => {
+        console.log("playerManager");
+      }
+    );
+
+    playerManager.addEventListener(
+      cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+      () => {
+        console.log("PLAYER_LOAD_COMPLETE");
+      }
+    );
+
+    const playbackConfig = new cast.framework.PlaybackConfig();
+    playbackConfig.manifestRequestHandler = requestInfo => {
+      console.log("requestInfo" + requestInfo);
+    };
+
+    playbackConfig.segmentRequestHandler = requestInfo => {
+      console.log("segmentRequestHandler: " + requestInfo);
+    };
+
+    // Sets the player to start playback as soon as there are five seconds of
+    // media contents buffered. Default is 10.
+    playbackConfig.autoResumeDuration = 5;
+    context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+    context.start({ playbackConfig: playbackConfig });
+  </script>
+</body>
+
 </html>
