@@ -20,7 +20,7 @@ const LOG_TAG = 'MyAPP.LOG';
 castDebugLogger.setEnabled(true);
 
 // Show debug overlay
-castDebugLogger.showDebugLogs(true);
+//nn castDebugLogger.showDebugLogs(true);
 
 // Set verbosity level for Core events.
 castDebugLogger.loggerLevelByEvents = {
@@ -255,6 +255,19 @@ playerManager.addEventListener(
         'properly and the media is able to play.');
     }
 });
+//nn
+context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
+    // handle customEvent.
+    console.log("addCustomMessageListener: " + customEvent);
+  });
+//nn
+  playerManager.addEventListener(
+    cast.framework.events.category.CORE,
+    event => {
+      console.log("playerManager" + event.EventType);
+    }
+  );
+
 
 // /**
 //  * Example analytics tracking implementation. See cast_analytics.js. Must
