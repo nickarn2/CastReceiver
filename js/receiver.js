@@ -24,7 +24,7 @@ playerManager.setMessageInterceptor(
 playerManager.addEventListener(
   cast.framework.events.category.CORE,
   event => {
-    console.log("playerManager" + event.EventType);
+    console.log("playerManager = " + event.type);
   }
 );
 
