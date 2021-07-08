@@ -7,6 +7,8 @@ options.maxInactivity = 3600;
 const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
   // handle customEvent.
+  debugger;
+  context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
   console.log("addCustomMessageListener: " + customEvent);
 });
 
