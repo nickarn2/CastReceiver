@@ -35,6 +35,12 @@ playerManager.addEventListener(
         debugger;
     }
     try {
+        context.sendCustomMessage(CUSTOM_CHANNEL, JSON.stringify(event));//nn
+      } catch(e) {
+        console.error(Constants.APP_INFO, TAG, e);
+        debugger;
+    }
+    try {
         context.sendCustomMessage(CUSTOM_CHANNEL, event);//nn
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
