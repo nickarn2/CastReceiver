@@ -28,6 +28,7 @@ playerManager.setMessageInterceptor(
 playerManager.addEventListener(
   cast.framework.events.category.CORE,
   event => {
+    context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");//nn
     console.log("playerManager = " + event.type);
     console.log("CastContext", "Core event: " + JSON.stringify(event));
   }
