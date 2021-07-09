@@ -4,11 +4,11 @@ const options = new cast.framework.CastReceiverOptions();
 options.maxInactivity = 3600;
 
 // message interceptor
-const CUSTOM_CHANNEL = "urn:x-cast:com-custApp";
+const CUSTOM_CHANNEL = 'urn:x-cast:com-custApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
   // handle customEvent.
   debugger;
-  context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+  //context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
   console.log("addCustomMessageListener: " + customEvent);
 });
 
@@ -19,7 +19,7 @@ playerManager.setMessageInterceptor(
     debugger;
     console.log("loadRequestData" + loadRequestData);
     console.log("loadRequestData" + JSON.stringify(loadRequestData));
-    context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+    //context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
     return loadRequestData;
   }
 );
@@ -35,17 +35,20 @@ playerManager.addEventListener(
     //     debugger;
     // }
     try {
-        context.sendCustomMessage(CUSTOM_CHANNEL, JSON.stringify(event));//nn
+        context.sendCustomMessage('urn:x-cast:com-custApp', JSON.stringify(event));//nn
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
         debugger;
     }
-    // try {
-    //     context.sendCustomMessage(CUSTOM_CHANNEL, event);//nn
-    //   } catch(e) {
-    //     console.error(Constants.APP_INFO, TAG, e);
-    //     debugger;
-    // }
+    try {
+        context.sendCustomMessage('urn:x-cast:com-custApp', {
+            type: 'status',
+            message: 'Playing'
+        });//nn
+      } catch(e) {
+        console.error(Constants.APP_INFO, TAG, e);
+        debugger;
+    }
     console.log("playerManager = " + event.type);
     console.log("CastContext", "Core event: " + JSON.stringify(event));
   }
@@ -70,5 +73,10 @@ playbackConfig.segmentRequestHandler = requestInfo => {
 // Sets the player to start playback as soon as there are five seconds of
 // media contents buffered. Default is 10.
 playbackConfig.autoResumeDuration = 5;
-context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
-context.start({ playbackConfig: playbackConfig });
+//context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+//context.start({ playbackConfig: playbackConfig });
+//const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
+const namespaces = {'urn:x-cast:com-custApp' : 'JSON',
+'urn:x-cast:verizon-cloud' : 'JSON' };
+context.start({ playbackConfig: playbackConfig,
+    customNamespaces:  namespaces});        
