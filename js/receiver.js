@@ -4,7 +4,7 @@ const options = new cast.framework.CastReceiverOptions();
 options.maxInactivity = 3600;
 
 // message interceptor
-const CUSTOM_CHANNEL = 'urn:x-cast:com-custApp';
+const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
   // handle customEvent.
   debugger;
@@ -35,13 +35,13 @@ playerManager.addEventListener(
     //     debugger;
     // }
     try {
-        context.sendCustomMessage('urn:x-cast:com-custApp', JSON.stringify(event));//nn
+        context.sendCustomMessage('urn:x-cast:comcustApp', JSON.stringify(event));//nn
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
         debugger;
     }
     try {
-        context.sendCustomMessage('urn:x-cast:com-custApp', {
+        context.sendCustomMessage('urn:x-cast:comcustApp', {
             type: 'status',
             message: 'Playing'
         });//nn
@@ -76,7 +76,7 @@ playbackConfig.autoResumeDuration = 5;
 //context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //context.start({ playbackConfig: playbackConfig });
 //const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
-const namespaces = {'urn:x-cast:com-custApp' : 'JSON',
+const namespaces = {'urn:x-cast:comcustApp' : 'JSON',
 'urn:x-cast:verizon-cloud' : 'JSON' };
 context.start({ playbackConfig: playbackConfig,
     customNamespaces:  namespaces});        
