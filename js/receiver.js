@@ -17,7 +17,6 @@ playerManager.setMessageInterceptor(
     debugger;
     console.log("loadRequestData" + loadRequestData);
     console.log("loadRequestData" + JSON.stringify(loadRequestData));
-    //context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
     return loadRequestData;
   }
 );
