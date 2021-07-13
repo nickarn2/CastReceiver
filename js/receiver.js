@@ -54,6 +54,6 @@ playbackConfig.segmentRequestHandler = requestInfo => {
 };
 playbackConfig.autoResumeDuration = 5;
 const namespaces = {'urn:x-cast:comcustApp' : 'JSON',
-'urn:x-cast:verizon-cloud' : 'JSON' };
+'urn:x-cast:comcustAppString' : 'STRING' };
 context.start({ playbackConfig: playbackConfig,
     customNamespaces:  namespaces});        
