@@ -3,7 +3,10 @@ const playerManager = context.getPlayerManager();
 
 const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
-  console.log("addCustomMessageListener: " + customEvent);
+  console.log("comcustApp Listener: " + JSON.stringify(customEvent));
+});
+context.addCustomMessageListener('urn:x-cast:comcustAppString', function(customEvent) {
+  console.log("comcustAppString Listener: " + JSON.stringify(customEvent));
 });
 
 // intercept the LOAD request to be able to read in a contentId and get data
