@@ -1,7 +1,7 @@
 const context = cast.framework.CastReceiverContext.getInstance();
 const playerManager = context.getPlayerManager();
-const options = new cast.framework.CastReceiverOptions();
-options.maxInactivity = 3600;
+//const options = new cast.framework.CastReceiverOptions();
+//options.maxInactivity = 3600;
 
 // message interceptor
 const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
