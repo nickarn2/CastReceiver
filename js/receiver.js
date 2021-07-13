@@ -1,9 +1,12 @@
 const context = cast.framework.CastReceiverContext.getInstance();
 const playerManager = context.getPlayerManager();
+const options = new cast.framework.CastReceiverOptions();
+options.maxInactivity = 3600;
 
 // message interceptor
 const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
+  debugger;
   console.log("addCustomMessageListener: " + customEvent);
 });
 
@@ -11,6 +14,7 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
 playerManager.setMessageInterceptor(
   cast.framework.messages.MessageType.LOAD,
   loadRequestData => {
+    debugger;
     console.log("loadRequestData" + loadRequestData);
     console.log("loadRequestData" + JSON.stringify(loadRequestData));
     return loadRequestData;
@@ -37,11 +41,11 @@ playerManager.addEventListener(
         debugger;
     }
     try {
-      context.sendCustomMessage('urn:x-cast:comcustAppString', JSON.stringify(event));
-    } catch(e) {
-      console.error(Constants.APP_INFO, TAG, e);
-      debugger;
-  }
+        context.sendCustomMessage('urn:x-cast:comcustApp', JSON.stringify(event));
+      } catch(e) {
+        console.error(Constants.APP_INFO, TAG, e);
+        debugger;
+    }
 
     console.log("playerManager = " + event.type);
     console.log("CastContext", "Core event: " + JSON.stringify(event));
@@ -57,6 +61,6 @@ playbackConfig.segmentRequestHandler = requestInfo => {
 };
 playbackConfig.autoResumeDuration = 5;
 const namespaces = {'urn:x-cast:comcustApp' : 'JSON',
-                    'urn:x-cast:comcustAppString' : 'STRING' };
+'urn:x-cast:comcustAppString' : 'STRING' };
 context.start({ playbackConfig: playbackConfig,
-                customNamespaces:  namespaces});        
+    customNamespaces:  namespaces});        
