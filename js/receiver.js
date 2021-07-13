@@ -58,6 +58,6 @@ playbackConfig.segmentRequestHandler = requestInfo => {
 };
 playbackConfig.autoResumeDuration = 5;
 const namespaces = {'urn:x-cast:comcustApp' : 'JSON',
-                    'urn:x-cast:comcustAppString' : 'STRING' };
+                    'urn:x-cast:comcustAppString' : 'JSON' };//'STRING' does not work
 context.start({ playbackConfig: playbackConfig,
                 customNamespaces: namespaces});        
