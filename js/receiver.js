@@ -4,7 +4,7 @@ const options = new cast.framework.CastReceiverOptions();
 options.maxInactivity = 3600;
 
 // message interceptor
-const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
+const CUSTOM_CHANNEL = "urn:x-cast:comcustApp";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
   debugger;
   console.log("addCustomMessageListener: " + customEvent);
