@@ -37,7 +37,7 @@ playerManager.addEventListener(
         debugger;
     }
     try {
-      context.sendCustomMessage('urn:x-cast:comcustAppString', "Text message");
+      context.sendCustomMessage('urn:x-cast:comcustAppString', JSON.stringify(event));
     } catch(e) {
       console.error(Constants.APP_INFO, TAG, e);
       debugger;
