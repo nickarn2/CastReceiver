@@ -6,9 +6,7 @@ options.maxInactivity = 3600;
 // message interceptor
 const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
-  // handle customEvent.
   debugger;
-  //context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
   console.log("addCustomMessageListener: " + customEvent);
 });
 
@@ -28,14 +26,8 @@ playerManager.setMessageInterceptor(
 playerManager.addEventListener(
   cast.framework.events.category.CORE,
   event => {
-    // try {
-    //     context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");//nn
-    //   } catch(e) {
-    //     console.error(Constants.APP_INFO, TAG, e);
-    //     debugger;
-    // }
     try {
-        context.sendCustomMessage('urn:x-cast:comcustApp', JSON.stringify(event));//nn
+        context.sendCustomMessage('urn:x-cast:comcustApp', JSON.stringify(event));
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
         debugger;
@@ -44,7 +36,7 @@ playerManager.addEventListener(
         context.sendCustomMessage('urn:x-cast:comcustApp', {
             type: 'status',
             message: 'Playing'
-        });//nn
+        });
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
         debugger;
@@ -54,28 +46,14 @@ playerManager.addEventListener(
   }
 );
 
-playerManager.addEventListener(
-  cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-  () => {
-    console.log("PLAYER_LOAD_COMPLETE");
-  }
-);
-
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.manifestRequestHandler = requestInfo => {
   console.log("requestInfo" + requestInfo);
 };
-
 playbackConfig.segmentRequestHandler = requestInfo => {
   console.log("segmentRequestHandler: " + requestInfo);
 };
-
-// Sets the player to start playback as soon as there are five seconds of
-// media contents buffered. Default is 10.
 playbackConfig.autoResumeDuration = 5;
-//context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
-//context.start({ playbackConfig: playbackConfig });
-//const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
 const namespaces = {'urn:x-cast:comcustApp' : 'JSON',
 'urn:x-cast:verizon-cloud' : 'JSON' };
 context.start({ playbackConfig: playbackConfig,
