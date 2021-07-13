@@ -6,7 +6,6 @@ options.maxInactivity = 3600;
 // message interceptor
 const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
-  debugger;
   console.log("addCustomMessageListener: " + customEvent);
 });
 
@@ -14,7 +13,6 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
 playerManager.setMessageInterceptor(
   cast.framework.messages.MessageType.LOAD,
   loadRequestData => {
-    debugger;
     console.log("loadRequestData" + loadRequestData);
     console.log("loadRequestData" + JSON.stringify(loadRequestData));
     return loadRequestData;
