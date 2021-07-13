@@ -1,12 +1,9 @@
 const context = cast.framework.CastReceiverContext.getInstance();
 const playerManager = context.getPlayerManager();
-const options = new cast.framework.CastReceiverOptions();
-options.maxInactivity = 3600;
 
 // message interceptor
 const CUSTOM_CHANNEL = 'urn:x-cast:comcustApp';
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
-  debugger;
   console.log("addCustomMessageListener: " + customEvent);
 });
 
@@ -14,7 +11,6 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
 playerManager.setMessageInterceptor(
   cast.framework.messages.MessageType.LOAD,
   loadRequestData => {
-    debugger;
     console.log("loadRequestData" + loadRequestData);
     console.log("loadRequestData" + JSON.stringify(loadRequestData));
     return loadRequestData;
@@ -41,7 +37,7 @@ playerManager.addEventListener(
         debugger;
     }
     try {
-      context.sendCustomMessage('urn:x-cast:comcustAppString', 'Text message');
+      context.sendCustomMessage('urn:x-cast:comcustAppString', "Text message");
     } catch(e) {
       console.error(Constants.APP_INFO, TAG, e);
       debugger;
