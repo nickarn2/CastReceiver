@@ -23,13 +23,13 @@ playerManager.addEventListener(
   cast.framework.events.category.CORE,
   event => {
     try {
-        context.sendCustomMessage('urn:x-cast:comcustApp', JSON.stringify(event));
+        context.sendCustomMessage('urn:x-cast:comcustApp', undefined, JSON.stringify(event));
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
         debugger;
     }
     try {
-        context.sendCustomMessage('urn:x-cast:comcustApp', {
+        context.sendCustomMessage('urn:x-cast:comcustApp', undefined, {
             type: 'status',
             message: 'Playing'
         });
@@ -38,7 +38,7 @@ playerManager.addEventListener(
         debugger;
     }
     try {
-        context.sendCustomMessage('urn:x-cast:comcustApp', JSON.stringify(event));
+        context.sendCustomMessage('urn:x-cast:comcustApp', undefined, JSON.stringify(event));
       } catch(e) {
         console.error(Constants.APP_INFO, TAG, e);
         debugger;
